@@ -75,9 +75,9 @@ module Jets::Commands::Call
       end
 
       add_console_link_to_clipboard
-      result = resp.payload.read # already been normalized/JSON.dump by AWS
-      unless @options[:mute_output]
-        STDOUT.puts result # only thing that goes to stdout
+      result = resp.payload # already been normalized/JSON.dump by AWS
+      unless @options[:mute_output] && result.nil?
+        STDOUT.puts result.read # only thing that goes to stdout
       end
     end
 
